@@ -65,14 +65,13 @@ function checkURL(abc){
 		else{document.getElementById('time_alert').style.display = "none";document.getElementById('b1').removeAttribute('disabled');}
 		var today = new Date();
 		p = (today.getMonth()+1) + '/' + today.getDate() + '/' + today.getFullYear();
-		console.log(p);
+		p2 = document.getElementById('date').value.split('-');
+		p2 = p2[1] + '/' + p2[2] + '/' + p2[0];
 		var timenow = new Date(p + " " + today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds());
-		var start_time = new Date(p + " " + document.getElementById('hiddentime').value);
-		var staff_start = new Date(p + " " + "09:00:00");
-		console.log("now: " + timenow);
-		console.log("entered: " + start_time);
-		//if (start_time <= timenow){console.log("Working");}
-		if(start_time <= timenow || start_time < staff_start){document.getElementById('time_alert_x').style.display = "";document.getElementById('b1').setAttribute('disabled','');}
+		var start_time = new Date(p2 + " " + document.getElementById('hiddentime').value);
+		var start_time_a = new Date("01/01/2007 " + document.getElementById('hiddentime').value);
+		var staff_start = new Date("01/01/2007 " + "09:00:00");
+		if(start_time <= timenow || start_time_a < staff_start){document.getElementById('time_alert_x').style.display = "";document.getElementById('b1').setAttribute('disabled','');}
 		else{document.getElementById('time_alert_x').style.display = "none";document.getElementById('b1').removeAttribute('disabled');}
 	};
 	function timerecord2() {
@@ -89,14 +88,13 @@ function checkURL(abc){
 		else{document.getElementById('time_alert').style.display = "none";document.getElementById('b1').removeAttribute('disabled');}
 		var today = new Date();
 		p = (today.getMonth()+1) + '/' + today.getDate() + '/' + today.getFullYear();
-		console.log(p);
+		p2 = document.getElementById('date').value.split('-');
+		p2 = p2[1] + '/' + p2[2] + '/' + p2[0];
 		var timenow = new Date(p + " " + today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds());
-		var end_time = new Date(p + " " + document.getElementById('hiddentime').value);
-		var staff_end = new Date(p + " " + "17:00:00");
-		console.log("now: " + timenow);
-		console.log("entered endtime: " + end_time);
-		//if (start_time <= timenow){console.log("Working");}
-	if(end_time <= timenow || end_time > staff_end){document.getElementById('time_alert_x').style.display = "";document.getElementById('b1').setAttribute('disabled','');}
+		var end_time = new Date(p2 + " " + document.getElementById('hiddentime2').value);
+		var end_time_a = new Date("01/01/2007 " + document.getElementById('hiddentime').value);
+		var staff_end = new Date("01/01/2007 " + "17:00:00");
+	if(end_time <= timenow || end_time_a > staff_end){document.getElementById('time_alert_x').style.display = "";document.getElementById('b1').setAttribute('disabled','');}
 		else{document.getElementById('time_alert_x').style.display = "none";document.getElementById('b1').removeAttribute('disabled');}
 	};
 
@@ -141,11 +139,8 @@ $(document).ready(function () {
 	$('#bhavan_list li').on('click', function(){
 		$("#dd_button").text($(this).text());
 		let arr = ["K", "R", "S", "G", "B", "V", "GT", "VM", "M", "MM", "VB", "VG", "MR", "H8"];
-		console.log("This: ");
-		console.log($(this).attr('id'));
 		let num = parseInt($(this).attr('id'));
 		document.getElementById('bhavan').value = arr[num];
-		console.log(num);
 		if(arr[num] == "MM" || arr[num] == "M" || arr[num] == "VG"){
 			document.getElementById('g_msg').style="";
 			document.getElementById('slots').style="";
@@ -198,7 +193,7 @@ $(document).ready(function () {
 	$('#contact_no').change(function (){
 		var contact_no = document.getElementById('contact_no');
 		var regex = /^(\+?91[\-\s]?)?[0]?(91)?[789]\d{9}$/ ;
-		if((!regex.test(contact_no.value)) || (contact_no.value.length > 12 || contact_no.value.length < 8)){
+		if((!regex.test(contact_no.value)) || (contact_no.value.length > 12 || contact_no.value.length < 10)){
 			contact_no.style.borderColor = 'red';
 			document.getElementById('b1').setAttribute('disabled','');
 		}
